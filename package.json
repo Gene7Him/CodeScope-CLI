@@ -1,0 +1,27 @@
+{
+  "name": "codescope-cli",
+  "version": "1.0.0",
+  "description": "**CodeScope** is a command-line tool that helps developers understand the risk and complexity of code changes before they ship. It's built for engineers who want fast, lightweight insights directly from the terminal.",
+  "main": "bin/codescope.js",
+  "bin": {
+    "codescope": "./bin/codescope.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gene7Him/CodeScope-CLI.git"
+  },
+  "keywords": ["cli", "code analysis", "complexity", "developer tools"],
+  "author": "Eugene Faison",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Gene7Him/CodeScope-CLI/issues"
+  },
+  "homepage": "https://github.com/Gene7Him/CodeScope-CLI#readme",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "simple-git": "^3.27.0",
+    "tree-sitter": "^0.22.4"
+  }
+}
