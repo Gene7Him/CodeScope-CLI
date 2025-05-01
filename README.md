@@ -2,7 +2,7 @@
 
 **CodeScope** is a command-line tool that helps developers understand the risk and complexity of code changes before they ship. It's built for engineers who want fast, lightweight insights directly from the terminal.
 
-Currently supports **JavaScript**. Future support planned for Python, TypeScript, and Git-based change risk analysis.
+Currently supports **JavaScript, Python & Git-based change risk analysis**. Future support planned for TypeScript.
 
 ---
 
@@ -72,14 +72,7 @@ codescope analyze path/to/file.js
 
 ```bash
 # Analyze other languages
-codescope analyze path/to/file.py
 codescope analyze path/to/file.ts
-
-# Scan entire projects
-codescope project-scan ./src
-
-# Git commit risk profiling
-codescope git-risk path/to/file.js
 
 # Dependency tree mapping
 codescope deps path/to/file.js
@@ -94,7 +87,7 @@ codescope deps path/to/file.js
 - [chalk](https://www.npmjs.com/package/chalk) — styled terminal output  
 - Native Node.js `fs` module for file parsing  
 - (Planned) Tree-sitter for AST parsing  
-- (Planned) Simple-git for Git integration  
+- Simple-git for Git integration  
 
 ---
 
@@ -105,11 +98,12 @@ codescope deps path/to/file.js
 - [ ] TypeScript support  
 - [x] Project-wide scan support  
 - [x] Git commit heatmap / change risk  
-- [ ] Dependency impact analyzer  
+- [x] Dependency impact analyzer  
 - [ ] AI-generated change summaries  
 - [ ] Export reports as Markdown or JSON  
 
 ---
+
 
 ## 🧑‍💻 Contributing
 
