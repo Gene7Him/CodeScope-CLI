@@ -10,7 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/Gene7Him/CodeScope-CLI.git"
   },
-  "keywords": ["cli", "code analysis", "complexity", "developer tools"],
+  "keywords": [
+    "cli",
+    "code analysis",
+    "complexity",
+    "developer tools"
+  ],
   "author": "Eugene Faison",
   "license": "MIT",
   "type": "module",

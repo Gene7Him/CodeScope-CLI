@@ -3,6 +3,7 @@ import scanProject from './analyzer/projectScan.js';
 import { Command } from 'commander';
 import chalk from 'chalk';
 import analyzeFile from './analyzer/parser.js';
+import analyzeGitRisk from './analyzer/gitRisk.js';
 
 const program = new Command();
 
@@ -25,6 +26,13 @@ program
   .option('--json', 'Output as JSON')
   .action((dir, options) => {
     scanProject(dir, options);
+  });
+
+  program
+  .command('git-risk')
+  .argument('<dir>', 'Directory to analyze Git churn')
+  .action((dir) => {
+    analyzeGitRisk(dir);
   });
 
 program.parse(process.argv);

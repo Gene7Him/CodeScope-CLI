@@ -103,8 +103,8 @@ codescope deps path/to/file.js
 - [x] Basic JavaScript file analysis  
 - [x] Add Python support  
 - [ ] TypeScript support  
-- [ ] Project-wide scan support  
-- [ ] Git commit heatmap / change risk  
+- [x] Project-wide scan support  
+- [x] Git commit heatmap / change risk  
 - [ ] Dependency impact analyzer  
 - [ ] AI-generated change summaries  
 - [ ] Export reports as Markdown or JSON  
