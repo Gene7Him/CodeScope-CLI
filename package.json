@@ -4,7 +4,7 @@
   "description": "**CodeScope** is a command-line tool that helps developers understand the risk and complexity of code changes before they ship. It's built for engineers who want fast, lightweight insights directly from the terminal.",
   "main": "bin/codescope.js",
   "bin": {
-    "codescope": "./bin/codescope.js"
+    "codescope": "./cli.js"
   },
   "repository": {
     "type": "git",

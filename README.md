@@ -101,7 +101,7 @@ codescope deps path/to/file.js
 ## 🧠 Roadmap
 
 - [x] Basic JavaScript file analysis  
-- [ ] Add Python support  
+- [x] Add Python support  
 - [ ] TypeScript support  
 - [ ] Project-wide scan support  
 - [ ] Git commit heatmap / change risk  

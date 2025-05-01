@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+import scanProject from './analyzer/projectScan.js';
 import { Command } from 'commander';
 import chalk from 'chalk';
 import analyzeFile from './analyzer/parser.js';
@@ -15,6 +17,14 @@ program
   .option('--json', 'Output as JSON')
   .action((filepath, options) => {
     analyzeFile(filepath, options);
+  });
+
+  program
+  .command('scan')
+  .argument('<dir>', 'Directory to recursively scan')
+  .option('--json', 'Output as JSON')
+  .action((dir, options) => {
+    scanProject(dir, options);
   });
 
 program.parse(process.argv);
