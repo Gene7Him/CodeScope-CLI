@@ -4,6 +4,10 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import analyzeFile from './analyzer/parser.js';
 import analyzeGitRisk from './analyzer/gitRisk.js';
+import { printBanner } from './utils/banner.js';
+
+printBanner('📦 CodeScope CLI', 'Analyzing your code like a boss 😎');
+
 
 const program = new Command();
 
@@ -33,6 +37,23 @@ program
   .argument('<dir>', 'Directory to analyze Git churn')
   .action((dir) => {
     analyzeGitRisk(dir);
+  });
+
+  program
+  .command('impact')
+  .argument('<dir>', 'Directory to analyze dependency impact')
+  .action(async (dir) => {
+    const files = await scanDirectory(dir); // reuse from projectScan
+    const impact = analyzeDependencyImpact(files);
+
+    printBanner('🔗 Dependency Impact', 'Inbound & Outbound References');
+
+    for (const [file, info] of Object.entries(impact)) {
+      console.log(chalk.bold(file));
+      console.log(`  ➤ Imports: ${info.imports.length}`);
+      console.log(`  ➤ Imported By: ${info.importedBy.length}`);
+      console.log('');
+    }
   });
 
 program.parse(process.argv);
