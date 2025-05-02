@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import analyzeFile from './parser.js';
 import chalk from 'chalk';
-
+import getDeps from './dependencyGraph.js';
 async function scanDirectory(dir) {
   let results = [];
 
@@ -14,7 +14,7 @@ async function scanDirectory(dir) {
     if (file.isDirectory()) {
       const nestedResults = await scanDirectory(fullPath);
       results = results.concat(nestedResults);
-    } else if (isCodeFile(file.name)) {
+    } else if (file.name.endsWith('.js') || file.name.endsWith('.py')) {
       results.push(fullPath);
     }
     
@@ -33,6 +33,7 @@ export default async function scanProject(dir, options) {
       loops: 0,
       complexity: 0,
       dependencies: 0,
+      impact: {},  // We'll add impact analysis here
     };
 
     for (const file of files) {
@@ -46,6 +47,7 @@ export default async function scanProject(dir, options) {
         const getDeps = (await import('./dependencyGraph.js')).default;
         result = analyze(code);
         result.dependencies = getDeps(code).length;
+        result.dependencyList = getDeps(code); // Track the list of dependencies
       } else if (ext === '.py') {
         const analyze = (await import('./pythonParser.js')).default;
         result = analyze(code);
@@ -58,6 +60,14 @@ export default async function scanProject(dir, options) {
         summary.loops += result.loopCount;
         summary.complexity += result.complexity;
         summary.dependencies += result.dependencies;
+
+         // Update dependency impact
+         result.dependencyList.forEach((dep) => {
+          if (!summary.impact[dep]) {
+            summary.impact[dep] = 0;
+          }
+          summary.impact[dep] += 1;
+        });
       }
     }
 
@@ -71,6 +81,10 @@ export default async function scanProject(dir, options) {
       console.log(chalk.magenta(`🔹 Loops: ${summary.loops}`));
       console.log(chalk.redBright(`🔹 Total Complexity: ${summary.complexity}`));
       console.log(chalk.cyan(`🔹 Total Dependencies: ${summary.dependencies}`));
+      console.log(chalk.blue(`🔹 Dependency Impact:`));
+      Object.entries(summary.impact).forEach(([dep, count]) => {
+ console.log(chalk.yellow(`${dep}: ${count} files depend on this`));
+});
     }
 
   } catch (err) {
@@ -82,3 +96,5 @@ const isCodeFile = file =>
   file.endsWith('.js') ||
   file.endsWith('.ts') ||  // ✅ Add this line
   file.endsWith('.py');
+
+  

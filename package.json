@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Gene7Him/CodeScope-CLI#readme",
   "dependencies": {
+    "acorn": "^8.14.1",
     "boxen": "^8.0.1",
     "chalk": "^5.4.1",
     "commander": "^13.1.0",

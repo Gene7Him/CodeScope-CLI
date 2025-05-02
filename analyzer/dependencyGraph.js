@@ -1,7 +1,21 @@
-export default function getDependencies(code) {
-    const importMatches = code.match(/import\s.+?from\s['"].+?['"]/g) || [];
-    const requireMatches = code.match(/require\(['"].+?['"]\)/g) || [];
-  
-    return [...importMatches, ...requireMatches];
-  }
+import * as acorn from 'acorn';
+
+import path from 'path';
+
+export default function getDeps(code) {
+  const ast = acorn.parse(code, {
+    sourceType: 'module',
+  });
+
+  const dependencies = new Set();
+
+  acorn.walk.simple(ast, {
+    ImportDeclaration(node) {
+      dependencies.add(node.source.value); // Store the imported module
+    },
+  });
+
+  return Array.from(dependencies);
+}
+
   
