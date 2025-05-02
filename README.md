@@ -99,8 +99,8 @@ codescope deps path/to/file.js
 - [x] Project-wide scan support  
 - [x] Git commit heatmap / change risk  
 - [x] Dependency impact analyzer  
-- [ ] AI-generated change summaries  
-- [ ] Export reports as Markdown or JSON  
+- [x] AI-generated change summaries  
+- [x] Export reports as Markdown or JSON  
 
 ---
 

@@ -14,9 +14,10 @@ async function scanDirectory(dir) {
     if (file.isDirectory()) {
       const nestedResults = await scanDirectory(fullPath);
       results = results.concat(nestedResults);
-    } else if (file.name.endsWith('.js') || file.name.endsWith('.py')) {
+    } else if (isCodeFile(file.name)) {
       results.push(fullPath);
     }
+    
   }
 
   return results;
@@ -39,7 +40,8 @@ export default async function scanProject(dir, options) {
       const ext = path.extname(file);
       let result;
 
-      if (ext === '.js') {
+      if (ext === '.js' || ext === '.ts') {
+
         const analyze = (await import('./complexity.js')).default;
         const getDeps = (await import('./dependencyGraph.js')).default;
         result = analyze(code);
@@ -75,3 +77,8 @@ export default async function scanProject(dir, options) {
     console.error(chalk.red(`Error scanning directory: ${err.message}`));
   }
 }
+
+const isCodeFile = file =>
+  file.endsWith('.js') ||
+  file.endsWith('.ts') ||  // ✅ Add this line
+  file.endsWith('.py');

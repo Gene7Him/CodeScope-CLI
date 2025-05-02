@@ -40,3 +40,15 @@ export default function analyzeFile(filepath, options = {}) {
     console.error(chalk.red(`Error reading file: ${err.message}`));
   }
 }
+
+export function parseFileContent(filePath, content) {
+  const ext = path.extname(filePath);
+
+  if (ext === '.py') {
+    return parsePython(content);
+  } else if (ext === '.ts' || ext === '.js') {
+    return parseJavaScript(content); // same logic
+  } else {
+    return null;
+  }
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import scanProject from './analyzer/projectScan.js';
 import { Command } from 'commander';
+import scanProject from './analyzer/projectScan.js';
 import chalk from 'chalk';
 import analyzeFile from './analyzer/parser.js';
 import analyzeGitRisk from './analyzer/gitRisk.js';
@@ -36,7 +36,8 @@ program
   .command('impact')
   .argument('<dir>', 'Directory to analyze dependency impact')
   .action(async (dir) => {
-    const files = await scanDirectory(dir); // reuse from projectScan
+    await scanProject(dir, options); // ✅ Let scanProject handle scanning and output
+
     const impact = analyzeDependencyImpact(files);
 
     printBanner('🔗 Dependency Impact', 'Inbound & Outbound References');
@@ -67,20 +68,11 @@ program
   });
 
   program
-  .command('scan')
-  .argument('<dir>', 'Directory to scan')
-  .option('--format <type>', 'Output format: json | md', 'pretty')
+  .command('scan <dir>')
+  .description('Recursively scan a project directory')
+  .option('--json', 'Output results in JSON format')
   .action(async (dir, options) => {
-    const files = await scanDirectory(dir);
-    const results = analyzeComplexity(files); // or combine multiple analyzers
-
-    if (options.format === 'json') {
-      console.log(JSON.stringify(results, null, 2));
-    } else if (options.format === 'md') {
-      console.log(generateMarkdown(results));
-    } else {
-      printPrettyResults(results);
-    }
+    await scanProject(dir, options); // ✅ Let scanProject handle everything
   });
 
 
