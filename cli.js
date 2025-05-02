@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import analyzeFile from './analyzer/parser.js';
 import analyzeGitRisk from './analyzer/gitRisk.js';
 import { printBanner } from './utils/banner.js';
+import { getRecentDiffs } from './analyzer/changeSummary.js';
 
 printBanner('📦 CodeScope CLI', 'Analyzing your code like a boss 😎');
 
@@ -22,14 +23,6 @@ program
   .option('--json', 'Output as JSON')
   .action((filepath, options) => {
     analyzeFile(filepath, options);
-  });
-
-  program
-  .command('scan')
-  .argument('<dir>', 'Directory to recursively scan')
-  .option('--json', 'Output as JSON')
-  .action((dir, options) => {
-    scanProject(dir, options);
   });
 
   program
@@ -55,5 +48,40 @@ program
       console.log('');
     }
   });
+
+
+  program
+  .command('summarize')
+  .description('Generate AI-based summaries of recent code changes')
+  .action(async () => {
+    const diffs = await getRecentDiffs();
+
+    printBanner('🧠 Change Summary', 'AI-powered insights (stubbed)');
+
+    for (const entry of diffs) {
+      console.log(chalk.cyan(`Commit: ${entry.hash}`));
+      console.log(chalk.yellow(`Message: ${entry.message}`));
+      console.log(chalk.green(`Summary: ${entry.summary}`));
+      console.log('');
+    }
+  });
+
+  program
+  .command('scan')
+  .argument('<dir>', 'Directory to scan')
+  .option('--format <type>', 'Output format: json | md', 'pretty')
+  .action(async (dir, options) => {
+    const files = await scanDirectory(dir);
+    const results = analyzeComplexity(files); // or combine multiple analyzers
+
+    if (options.format === 'json') {
+      console.log(JSON.stringify(results, null, 2));
+    } else if (options.format === 'md') {
+      console.log(generateMarkdown(results));
+    } else {
+      printPrettyResults(results);
+    }
+  });
+
 
 program.parse(process.argv);
