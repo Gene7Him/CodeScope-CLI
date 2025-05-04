@@ -25,10 +25,17 @@
   "homepage": "https://github.com/Gene7Him/CodeScope-CLI#readme",
   "dependencies": {
     "acorn": "^8.14.1",
+    "axios": "^1.9.0",
     "boxen": "^8.0.1",
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
+    "dotenv": "^16.5.0",
+    "openai": "^4.97.0",
     "simple-git": "^3.27.0",
     "tree-sitter": "^0.22.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
