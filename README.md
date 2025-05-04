@@ -82,31 +82,44 @@ codescope analyze path/to/file.js
 Interacting with LLaMA 3
 The llama3-local.js script sends a prompt to the LLaMA 3 API and logs the response.
 
-Start the LLaMA 3 server:
+### Start the LLaMA 3 server:
 # Ensure the server is running on http://localhost:11434
 
-Run the script:
+### Run the script:
+```bash
 node llama3-local.js
+```
 
-Example prompt: The script sends the following prompt to LLaMA 3:
+### Example prompt: 
+
+The script sends the following prompt to LLaMA 3:
+```bash
 Write a bash script that takes a matrix represented as a string with 
 format '[1,2],[3,4],[5,6]' and prints the transpose in the same format.
+```
 
 The response from LLaMA 3 will be logged to the console.
 
 ---
 
-Matrix Transposition
+### Matrix Transposition
 The transpose.sh script takes a matrix as input and outputs its transpose.
 
-Run the script:
+### Run the script:
+```bash
 [transpose.sh](http://_vscodecontentref_/1)
+```
 
-Provide the matrix input: Enter the matrix in the format [1,2],[3,4],[5,6] and press Enter.
+### Provide the matrix input:
+```bash
+Enter the matrix in the format [1,2],[3,4],[5,6] and press Enter.
+```
 
-Example:
+### Example:
+```bash
 Input:  [1,2],[3,4],[5,6]
 Output: [1,3,5],[2,4,6]
+```
 
 ---
 
