@@ -83,7 +83,7 @@ Interacting with LLaMA 3
 The llama3-local.js script sends a prompt to the LLaMA 3 API and logs the response.
 
 ### Start the LLaMA 3 server:
-# Ensure the server is running on http://localhost:11434
+### Ensure the server is running on http://localhost:11434
 
 ### Run the script:
 ```bash
@@ -94,8 +94,7 @@ node llama3-local.js
 
 The script sends the following prompt to LLaMA 3:
 ```bash
-Write a bash script that takes a matrix represented as a string with 
-format '[1,2],[3,4],[5,6]' and prints the transpose in the same format.
+Write a bash script that takes a matrix represented as a string with format '[1,2],[3,4],[5,6]' and prints the transpose in the same format.
 ```
 
 The response from LLaMA 3 will be logged to the console.
