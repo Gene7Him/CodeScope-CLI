@@ -9,7 +9,7 @@ import { getRecentDiffs } from './analyzer/changeSummary.js';
 //import { runDebug } from './src/commands/debug.js';
 import { analyzeDiff } from './src/commands/analyze-diff.js';
 import explainFile from './src/commands/explain-file.js';
-
+import analyzeImpact from './src/commands/impact.js';
 
 printBanner('📦 CodeScope CLI', 'Analyzing your code like a boss 😎');
 
@@ -115,6 +115,11 @@ program
   });
  
 
+  program
+  .command('analyze-impact <fileOrDir>')
+  .option('--output <format>', 'Output format (json or markdown)')
+  .description('Analyze file/module dependency impact')
+  .action(analyzeImpact);
 
 
 program.parse(process.argv);

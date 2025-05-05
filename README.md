@@ -18,6 +18,7 @@ Currently supports **JavaScript, Python, Typescript & Git-based change risk anal
 - ✅ CLI-based workflow (no Express server required)
 - 🧠 Git Diff Analysis: Analyze Git diffs for potential risks and recommendations using the `analyze-diff` command.
 - `explain-file` command: Generates explanations for files or directories using AI and optionally saves the results in Markdown format.
+- `Dependency Impact Analysis`: Visualize and analyze file/module dependencies using the `impact` command.
 ---
 
 ## 💡 Vision
@@ -190,6 +191,46 @@ node cli.js explain-file ./src/commands --recursive --filter .js --output markdo
 Explanations are printed to the console.
 If `--output markdown` is specified, explanations are saved as `.md` files in the same directory as the original files.
 
+### `impact` Command
+
+The `impact` command analyzes file/module dependencies in a directory and generates a dependency graph. It can also output the results in JSON or Mermaid format for visualization.
+
+### How to Use
+
+Run the impact command with a directory path:
+
+```bash
+node cli.js impact <fileOrDir> [options]
+```
+
+### Options:
+
+`--output <format>`: Specify the output format (`json` or `markdown`).
+`json`: Saves the dependency graph as a JSON file.
+`markdown`: Saves the dependency graph as a Mermaid diagram in Markdown format.
+
+### Example:
+
+```bash
+node cli.js impact ./src --output markdown
+```
+
+### Example Output
+
+If you run the command with `--output markdown`, you might see a file like `src.impact.mmd`:
+
+```bash
+graph TD
+  [findRecentCommits.ts](http://_vscodecontentref_/1) --> [debug.ts](http://_vscodecontentref_/2)
+  [llama3-local.js](http://_vscodecontentref_/3) --> [analyze-diff.js](http://_vscodecontentref_/4)
+  [llama3-local.js](http://_vscodecontentref_/5) --> [explain-file.js](http://_vscodecontentref_/6)
+  [file-utils.js](http://_vscodecontentref_/7) --> [explain-file.js](http://_vscodecontentref_/8)
+  [stackTraceParser.ts](http://_vscodecontentref_/9) --> [debug.ts](http://_vscodecontentref_/10)
+```
+
+This Mermaid diagram can be rendered in Markdown viewers that support Mermaid or converted into a visual graph.
+
+
 Other Commands
 
 `analyze`
@@ -249,10 +290,12 @@ codescope deps path/to/file.js
 - **fs/promises** – File system operations
 - **child_process** – Making scripts executable and runnable
 - **readline** – Interactive CLI input
+- **madge** - Generates dependency graphs
 - **dotenv** – Configuration management (optional)
 - **chalk** – Stylish terminal output (optional)
 - **boxen** – Highlight messages in the terminal (optional)
 - **(Planned)** - Tree-sitter for AST parsing  
+
 
 ---
 

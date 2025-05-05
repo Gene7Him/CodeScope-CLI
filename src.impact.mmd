@@ -1,0 +1,8 @@
+```mermaid
+graph TD
+  git/findRecentCommits.ts --> src/commands/debug.ts
+  llama3-local.js --> src/commands/analyze-diff.js
+  llama3-local.js --> src/commands/explain-file.js
+  utils/file-utils.js --> src/commands/explain-file.js
+  utils/stackTraceParser.ts --> src/commands/debug.ts
+```
