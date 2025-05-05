@@ -16,7 +16,8 @@ Currently supports **JavaScript, Python, Typescript & Git-based change risk anal
 - 📜 Save generated Bash scripts to `.sh` files
 - 🔧 Auto-make scripts executable and ready to run
 - ✅ CLI-based workflow (no Express server required)
-- Git Diff Analysis: Analyze Git diffs for potential risks and recommendations using the `analyze-diff` command.
+- 🧠 Git Diff Analysis: Analyze Git diffs for potential risks and recommendations using the `analyze-diff` command.
+- `explain-file` command: Generates explanations for files or directories using AI and optionally saves the results in Markdown format.
 ---
 
 ## 💡 Vision
@@ -164,6 +165,30 @@ node cli.js analyze-diff
 The `analyze-diff` command uses the LLaMA 3 API to generate its analysis. Ensure the API is running and accessible.
 If no changes are detected in the Git diff, the command will display a warning.
 
+### `explain-file` Command
+
+#### How to Use
+
+1. Run the command with a file or directory path:
+
+   ```bash
+   node cli.js explain-file <fileOrDir> [options]
+   ```
+
+2. Options:
+
+`--recursive`: Recursively process directories.
+`--filter <ext>`: Filter files by extension (e.g., .js).
+`--output <format>`: Specify the output format (``markdown to save explanations as `.md` files).
+
+3. Example:
+```bash
+node cli.js explain-file ./src/commands --recursive --filter .js --output markdown
+```
+4. Output:
+
+Explanations are printed to the console.
+If `--output markdown` is specified, explanations are saved as `.md` files in the same directory as the original files.
 
 Other Commands
 

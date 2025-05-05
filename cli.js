@@ -8,6 +8,7 @@ import { printBanner } from './utils/banner.js';
 import { getRecentDiffs } from './analyzer/changeSummary.js';
 //import { runDebug } from './src/commands/debug.js';
 import { analyzeDiff } from './src/commands/analyze-diff.js';
+import explainFile from './src/commands/explain-file.js';
 
 
 printBanner('📦 CodeScope CLI', 'Analyzing your code like a boss 😎');
@@ -95,6 +96,24 @@ program
   .action(() => {
     program.help();
   });
+
+
+  program
+  .command('explain-file')
+  .argument('<target>', 'Target file or directory to explain')
+  .option('--recursive', 'Recursively walk directories')
+  .option('--filter <ext>', 'Filter files by extension (e.g., .js)', '.js')
+  .option('--output <format>', 'Output format (e.g., markdown)')
+  .description('Explain a file or set of files using AI')
+  .action(async (target, options) => {
+    console.log(chalk.magenta('📖 Running explain-file...'));
+    await explainFile(target, {
+      recursive: options.recursive || false,
+      filter: options.filter || '.js',
+      output: options.output || null
+    });
+  });
+ 
 
 
 
