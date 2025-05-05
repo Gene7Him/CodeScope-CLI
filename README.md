@@ -16,6 +16,7 @@ Currently supports **JavaScript, Python, Typescript & Git-based change risk anal
 - 📜 Save generated Bash scripts to `.sh` files
 - 🔧 Auto-make scripts executable and ready to run
 - ✅ CLI-based workflow (no Express server required)
+- Git Diff Analysis: Analyze Git diffs for potential risks and recommendations using the `analyze-diff` command.
 ---
 
 ## 💡 Vision
@@ -119,6 +120,88 @@ Enter the matrix in the format [1,2],[3,4],[5,6] and press Enter.
 Input:  [1,2],[3,4],[5,6]
 Output: [1,3,5],[2,4,6]
 ```
+
+
+### `analyze-diff` Command
+
+The `analyze-diff` command analyzes the most recent Git diff and provides a risk assessment, summary, and recommendations using AI.
+
+### How to Use
+
+Ensure you have staged changes in your Git repository:
+
+```bash
+git add <file>
+```
+Run the `analyze-diff` command:
+
+```bash
+node cli.js analyze-diff
+```
+### Example Output:
+
+```bash
+📊 Risk Analysis:
+🧩 Risk Level: 8/10
+📝 Summary: Removed unnecessary import statements, added new command 'analyze-diff', and modified existing code to handle new command
+💡 Reasoning: The removal of the 'debug' command's import statement reduces the overall complexity of the codebase. However, this change introduces a potential risk if the 'debug' command is not used correctly.,The introduction of the 'analyze-diff' command adds a new layer of functionality to the CLI tool but may require additional testing and validation to ensure correct usage.
+📁 Modules: src/commands/debug.js, src/commands/analyze-diff.js
+🛠 Recommendations:
+ - Ensure that the 'debug' command is used correctly and consider adding more robust error handling.
+ - Thoroughly test the 'analyze-diff' command to ensure its functionality and accuracy.
+ ```
+
+### What It Does
+
+**Risk Level**: Rates the risk of the changes on a scale of 1-10.
+**Summary**: Provides a concise summary of the changes.
+**Reasoning**: Explains why the changes might introduce risks or benefits.
+**Impacted Modules**: Lists the files affected by the changes.
+**Recommendations**: Offers actionable steps to mitigate risks and improve the changes.
+
+### Notes
+
+The `analyze-diff` command uses the LLaMA 3 API to generate its analysis. Ensure the API is running and accessible.
+If no changes are detected in the Git diff, the command will display a warning.
+
+
+Other Commands
+
+`analyze`
+Analyze the complexity and structure of a JavaScript file.
+
+```bash
+node [cli.js](http://_vscodecontentref_/1) analyze <filepath>
+```
+
+`git-risk`
+Analyze Git churn for a directory.
+
+```bash
+node [cli.js](http://_vscodecontentref_/2) git-risk <dir>
+```
+
+`impact`
+Analyze dependency impact for a directory.
+
+```bash
+node [cli.js](http://_vscodecontentref_/3) impact <dir>
+```
+
+`summarize`
+Generate AI-based summaries of recent code changes.
+
+```bash
+node [cli.js](http://_vscodecontentref_/4) summarize
+```
+
+`scan`
+Recursively scan a project directory.
+
+```bash
+node [cli.js](http://_vscodecontentref_/5) scan <dir> --json
+```
+
 
 ---
 

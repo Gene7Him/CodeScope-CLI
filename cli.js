@@ -6,7 +6,9 @@ import analyzeFile from './analyzer/parser.js';
 import analyzeGitRisk from './analyzer/gitRisk.js';
 import { printBanner } from './utils/banner.js';
 import { getRecentDiffs } from './analyzer/changeSummary.js';
-import { runDebug } from './src/commands/debug.js';
+//import { runDebug } from './src/commands/debug.js';
+import { analyzeDiff } from './src/commands/analyze-diff.js';
+
 
 printBanner('📦 CodeScope CLI', 'Analyzing your code like a boss 😎');
 
@@ -76,22 +78,24 @@ program
     await scanProject(dir, options); // ✅ Let scanProject handle everything
   });
 
-  const args = process.argv.slice(2);
-const command = args[0];
 
-switch (command) {
-  case 'debug':
-    if (!args[1]) {
-      console.error('⚠️  Please provide a path to a stack trace log file.');
-      process.exit(1);
-    }
-    await runDebug(args[1]);
-    break;
 
-  // keep existing commands here
-  default:
-    console.log('Unknown command. Try: analyze, diff, debug, help');
-}
+  console.log('Registering analyze-diff command...');
+  program
+  .command('analyze-diff')
+  .description('Analyze Git diff for risk assessment')
+  .action(async () => {
+    console.log('Running analyze-diff...');
+    await analyzeDiff();
+  });
+
+  program
+  .command('help')
+  .description('Show help information')
+  .action(() => {
+    program.help();
+  });
+
 
 
 program.parse(process.argv);
